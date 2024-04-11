@@ -15,6 +15,15 @@ const config: Config = {
       },
     },
   },
+  screens: {
+    xs: "390px",
+    sm: "550px",
+    md: "768px",
+    lg: "1024px",
+    xl: "1360px",
+    "2xl": "1920px",
+    "3xl": "2560px",
+  },
   plugins: [],
 };
 export default config;
