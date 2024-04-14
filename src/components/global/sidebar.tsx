@@ -1,11 +1,7 @@
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
-interface SidebarProps {
-  fadeOut: any;
-}
-
-export function Sidebar({ fadeOut }: SidebarProps) {
+export function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -36,7 +32,7 @@ export function Sidebar({ fadeOut }: SidebarProps) {
           } hover:bg-zinc-700`}
           onClick={() => router.push("/financial")}
         >
-          <Image src="/Icons/home.svg" alt="" width={30} height={30} />
+          <Image src="/Icons/financial.svg" alt="" width={30} height={30} />
           <span>Financeiro</span>
         </div>
         <div
@@ -45,7 +41,7 @@ export function Sidebar({ fadeOut }: SidebarProps) {
           } hover:bg-zinc-700`}
           onClick={() => router.push("/news")}
         >
-          <Image src="/Icons/home.svg" alt="" width={30} height={30} />
+          <Image src="/Icons/news.svg" alt="" width={30} height={30} />
           <span>Novidades</span>
         </div>
         <div
@@ -56,28 +52,10 @@ export function Sidebar({ fadeOut }: SidebarProps) {
           } hover:bg-zinc-700`}
           onClick={() => router.push("/profile")}
         >
-          <Image src="/Icons/home.svg" alt="" width={30} height={30} />
+          <Image src="/Icons/profile.svg" alt="" width={30} height={30} />
           <span>Perfil</span>
         </div>
       </div>
-      {/* <LinkComponent
-          fadeOut={() => fadeOut()}
-          name="Financeiro"
-          imgSrc={<FinancialSVG />}
-          href="/financeiro"
-        />
-        <LinkComponent
-          fadeOut={() => fadeOut()}
-          name="Novidades"
-          imgSrc={<NotificationSVG />}
-          href="/news-central"
-        />
-        <LinkComponent
-          fadeOut={() => fadeOut()}
-          name="Meu Perfil"
-          imgSrc={<ProfileSVG />}
-          href="/profile"
-        /> */}
     </div>
   );
 }

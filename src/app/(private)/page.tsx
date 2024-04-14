@@ -4,6 +4,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import MainLayout from "./Layout";
 import Image from "next/image";
 import "swiper/css";
+import { ModalBase } from "@/components/global/modal_base";
+import { useState } from "react";
+import { ModalWelcome } from "@/components/app/home/modal_welcome";
+import { ModalCreatePartner } from "@/components/app/home/modal_create_partner";
+import { ModalCreateIndication } from "@/components/app/home/modal_create_indication";
 
 export default function Home() {
   const dashboardCardsData = [
@@ -34,60 +39,66 @@ export default function Home() {
     {
       place: "Sinop - MT",
       name: "João Stel",
-      role: "Desenvolvedor",
+      phone: "(66) 99935-0566",
     },
     {
       place: "Sinop - MT",
       name: "Victor Ogawa",
-      role: "Desenvolvedor",
+      phone: "(66) 99935-0566",
     },
     {
       place: "Sinop - MT",
       name: "Gabriel Antônio",
-      role: "Desenvolvedor",
+      phone: "(66) 99935-0566",
     },
     {
       place: "Sinop - MT",
       name: "Maycon Vasconcelos",
-      role: "Desenvolvedor",
+      phone: "(66) 99935-0566",
     },
     {
       place: "Sinop - MT",
       name: "Nome 1",
-      role: "Desenvolvedor",
+      phone: "(66) 99935-0566",
     },
   ];
 
   const dashboardIndicationsData = [
     {
-      logo: "/Logos/inviolavel.svg",
+      logo: "/Logos/indication.svg",
       name: "Inviolável",
       place: "Sinop - MT",
+      representative: "Nome do Representante",
     },
     {
-      logo: "/Logos/inviolavel.svg",
+      logo: "/Logos/indication.svg",
       name: "Inviolável",
       place: "Sinop - MT",
+      representative: "Nome do Representante",
     },
     {
-      logo: "/Logos/inviolavel.svg",
+      logo: "/Logos/indication.svg",
       name: "Inviolável",
       place: "Sinop - MT",
+      representative: "Nome do Representante",
     },
     {
-      logo: "/Logos/inviolavel.svg",
+      logo: "/Logos/indication.svg",
       name: "Inviolável",
       place: "Sinop - MT",
+      representative: "Nome do Representante",
     },
     {
-      logo: "/Logos/inviolavel.svg",
+      logo: "/Logos/indication.svg",
       name: "Inviolável",
       place: "Sinop - MT",
+      representative: "Nome do Representante",
     },
     {
-      logo: "/Logos/inviolavel.svg",
+      logo: "/Logos/indication.svg",
       name: "Inviolável",
       place: "Sinop - MT",
+      representative: "Nome do Representante",
     },
   ];
 
@@ -129,6 +140,10 @@ export default function Home() {
       date: "24/10",
     },
   ];
+
+  const [showCreatePartnerModal, setShowCreatePartnerModal] = useState(false);
+  const [showCreateIndicationModal, setShowCreateIndicationModal] =
+    useState(false);
 
   return (
     <MainLayout>
@@ -177,7 +192,10 @@ export default function Home() {
             <span className="text-black text-xl font-semibold">
               Parceiros Cadastrados
             </span>
-            <button className="bg-[#1f932d] text-white rounded-lg px-2 py-1 flex items-center gap-2 text-sm lg:text-base">
+            <button
+              onClick={() => setShowCreatePartnerModal(true)}
+              className="bg-[#1f932d] text-white rounded-lg px-2 py-1 flex items-center gap-2 text-sm lg:text-base"
+            >
               <Image src="/Icons/add.svg" alt="" width={15} height={15} />
               Cadastrar Parceiro
             </button>
@@ -209,7 +227,7 @@ export default function Home() {
             >
               {dashboardPartnersData.map((partner, index) => (
                 <SwiperSlide key={index} className="p-2 lg:p-4">
-                  <div className="w-40 h-52 bg-zinc-300 shadow-[0px_5px_5px_rgba(0,0,0,0.25)] rounded-xl p-2 text-black flex flex-col justify-between items-center text-center">
+                  <div className="w-40 h-52 bg-zinc-100 border border-black shadow-[0px_5px_5px_rgba(0,0,0,0.25)] rounded-xl p-2 text-black flex flex-col justify-between items-center text-center">
                     <Image
                       src="/Icons/truepartner.svg"
                       width={200}
@@ -217,11 +235,13 @@ export default function Home() {
                       alt=""
                       className="w-3/4"
                     />
-                    <span className="text-sm leading-4">{partner.place}</span>
-                    <strong className="text-lg font-semibold leading-4">
-                      {partner.name}
-                    </strong>
-                    <span className="leading-4">{partner.role}</span>
+                    <div className="flex flex-col">
+                      <span className="text-sm leading-4">{partner.place}</span>
+                      <strong className="text-lg font-semibold leading-4">
+                        {partner.name}
+                      </strong>
+                      <span className="leading-4">{partner.phone}</span>
+                    </div>
                   </div>
                 </SwiperSlide>
               ))}
@@ -234,31 +254,39 @@ export default function Home() {
               <span className="w-1/2 border-b border-b-black font-semibold text-black text-xl leading-loose">
                 Indicações
               </span>
-              <button className="bg-[#1f932d] text-white rounded-lg px-2 py-1 flex items-center gap-2 text-sm lg:text-base">
+              <button
+                onClick={() => setShowCreateIndicationModal(true)}
+                className="bg-[#1f932d] text-white rounded-lg px-2 py-1 flex items-center gap-2 text-sm lg:text-base"
+              >
                 <Image src="/Icons/add.svg" alt="" width={15} height={15} />
                 Nova Indicação
               </button>
             </div>
             <div className="flex flex-wrap justify-items-center justify-between gap-4 lg:gap-2 max-h-80 overflow-y-scroll">
               {dashboardIndicationsData.map((indication, index) => (
-                <div className="w-full md:w-[45%] lg:w-full xl:w-2/5 h-48 rounded border border-black flex flex-col justify-between">
-                  <div className="w-full h-1/2 bg-black flex items-center justify-center">
+                <div className="w-full md:w-[45%] lg:w-full xl:w-[49%] h-32 rounded border border-black flex items-center">
+                  <div className="w-1/2 h-full flex items-center justify-center">
                     <Image
                       src={indication.logo}
                       alt=""
                       width={200}
                       height={80}
-                      className="w-3/4"
+                      className="w-3/4 m-auto"
                     />
                   </div>
-                  <div className="flex flex-col items-center justify-between h-1/2 text-black">
+                  <div className="flex flex-col mx-auto py-2 items-center justify-between h-full text-black">
                     <div className="flex flex-col">
                       <strong className="text-lg">{indication.name}</strong>
                       <span className="text-sm">{indication.place}</span>
                     </div>
-                    <button className="bg-[#2f5cfc] text-white rounded-lg px-2 py-1 m-auto text-sm">
-                      Selecionar
-                    </button>
+                    <div className="flex flex-col">
+                      <span className="text-sm">
+                        {indication.representative}
+                      </span>
+                      <button className="bg-[#2f5cfc] text-white rounded-lg px-2 py-1 m-auto text-sm">
+                        Detalhes
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -291,6 +319,18 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {/* <ModalWelcome
+        showModal={showModal}
+        handleCloseModal={() => setShowModal(false)}
+      /> */}
+      <ModalCreatePartner
+        showModal={showCreatePartnerModal}
+        handleCloseModal={() => setShowCreatePartnerModal(false)}
+      />
+      <ModalCreateIndication
+        showModal={showCreateIndicationModal}
+        handleCloseModal={() => setShowCreateIndicationModal(false)}
+      />
     </MainLayout>
   );
 }

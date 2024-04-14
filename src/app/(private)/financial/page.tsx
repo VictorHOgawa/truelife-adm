@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import MainLayout from "../Layout";
+import { ModalWithdraw } from "@/components/app/financial/modal_withdraw";
+import { useState } from "react";
 
 export default function Financial() {
   const financialData = [
@@ -49,6 +51,8 @@ export default function Financial() {
     },
   ];
 
+  const [showModalWithdraw, setShowModalWithdraw] = useState(false);
+
   return (
     <MainLayout>
       <div className="w-full lg:w-[calc(100%-13rem)] min-h-screen lg:max-h-screen bg-zinc-200 flex flex-col p-4">
@@ -69,7 +73,10 @@ export default function Financial() {
                   </div>
                 </div>
                 <div className="flex justify-between items-center border border-zinc-300 rounded-r-lg py-4 px-8 text-black">
-                  <button className="bg-green-700 px-6 py-2 rounded text-white">
+                  <button
+                    onClick={() => setShowModalWithdraw(true)}
+                    className="bg-green-700 px-6 py-2 rounded text-white"
+                  >
                     Fazer Retirada
                   </button>
                 </div>
@@ -113,6 +120,10 @@ export default function Financial() {
           </div>
         </div>
       </div>
+      <ModalWithdraw
+        showModal={showModalWithdraw}
+        handleCloseModal={() => setShowModalWithdraw(false)}
+      />
     </MainLayout>
   );
 }

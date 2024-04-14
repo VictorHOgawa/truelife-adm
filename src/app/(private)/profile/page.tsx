@@ -2,15 +2,23 @@
 
 import Image from "next/image";
 import MainLayout from "../Layout";
+import { ModalUpdatePassword } from "@/components/app/profile/modal_update_password";
+import { useState } from "react";
+import { ModalDeleteAccount } from "@/components/app/profile/modal_delete_account";
 
 export default function Profile() {
+  const [showUpdatePasswordModal, setShowUpdatePasswordModal] = useState(false);
+  const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
   return (
     <MainLayout>
       <div className="w-full lg:w-[calc(100%-13rem)] min-h-screen lg:max-h-screen bg-zinc-200 flex flex-col p-4">
         <div className="w-full bg-white rounded-lg p-4 flex flex-col gap-10">
           <div className="flex w-full items-center justify-between">
             <span className="text-black text-xl font-semibold">Meu Perfil</span>
-            <button className="bg-[#0d123c] text-white rounded-lg px-4 py-2">
+            <button
+              onClick={() => setShowUpdatePasswordModal(true)}
+              className="bg-[#0d123c] text-white rounded-lg px-4 py-2"
+            >
               Trocar Senha
             </button>
           </div>
@@ -87,7 +95,10 @@ export default function Profile() {
                   <button className="w-full h-8 px-2 rounded text-white bg-zinc-300">
                     Atualizar Cadastro
                   </button>
-                  <div className="flex items-center gap-1 self-end text-[#c22222] text-xs mt-1">
+                  <button
+                    onClick={() => setShowDeleteAccountModal(true)}
+                    className="flex items-center gap-1 self-end text-[#c22222] text-xs mt-1"
+                  >
                     <Image
                       src="/Icons/delete.svg"
                       alt=""
@@ -95,13 +106,21 @@ export default function Profile() {
                       height={15}
                     />
                     <span>Excluir cadastro?</span>
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <ModalUpdatePassword
+        showModal={showUpdatePasswordModal}
+        handleCloseModal={() => setShowUpdatePasswordModal(false)}
+      />
+      <ModalDeleteAccount
+        showModal={showDeleteAccountModal}
+        handleCloseModal={() => setShowDeleteAccountModal(false)}
+      />
     </MainLayout>
   );
 }
